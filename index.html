@@ -1,233 +1,268 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="light">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Curso de Biología Celular</title>
-
-  <!-- SEO & Social Meta -->
-  <meta name="description" content="Curso de Biología Celular: estructura, función y dinámica celular. Recursos, simuladores, quizzes y más.">
-  <meta property="og:title" content="Curso de Biología Celular">
-  <meta property="og:description" content="Explora recursos y actividades del curso de Biología Celular.">
-  <meta property="og:image" content="logo_universidad.png">
-  <meta property="og:type" content="website">
-
-  <!-- Favicon & PWA manifest -->
-  <link rel="icon" href="favicon-32.png" sizes="32x32">
-  <link rel="manifest" href="manifest.json">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <!-- Tailwind CSS -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi experiencia con IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: ['class'],
       theme: {
         extend: {
+          fontFamily: {
+            poppins: ["Poppins", "sans-serif"],
+          },
           colors: {
-            primary: '#2E7D32',
-            secondary: '#1565C0',
-            neutral: '#ECEFF1',
-            darkbg: '#102027',
-          }
+            primary: "#1e3a8a",   // Azul profundo
+            accent: "#f59e0b",    // Dorado suave
+            neutral: "#f3f4f6",   // Gris claro
+            dark: "#111827",      // Gris oscuro
+          },
         }
       }
     }
   </script>
-
-  <!-- AOS Animations -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-
   <style>
-    body { font-family: 'Open Sans', sans-serif; }
-    [data-theme="dark"] { background-color: #121212; color: #ECEFF1; }
-    .zoom-img { transition: transform 0.4s ease, box-shadow 0.4s ease; border-radius: 16px; max-width: 100%; cursor: zoom-in; }
-    .zoom-img:hover { transform: scale(1.05); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); }
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
   </style>
 </head>
-<body class="flex" x-data="{ dark: false }" x-init="dark = localStorage.getItem('theme')==='dark'; document.documentElement.classList.toggle('dark', dark); document.documentElement.setAttribute('data-theme', dark?'dark':'light');">
 
-  <!-- Sidebar -->
-  <aside id="sidebar" class="fixed h-full w-64 bg-primary text-neutral shadow-lg transition-transform transform" x-data="{ sidebarCollapsed: false, dropdownOpen: false }" :class="{ '-translate-x-full': sidebarCollapsed }">
-    <div class="p-6 text-center">
-      <img src="logo_universidad.png" alt="Logo Universidad" class="mx-auto w-32">
+<body class="bg-neutral text-dark">
+
+  <!-- Imagen de cabecera -->
+  <header id="top" class="relative">
+    <img src="header.jpg" alt="Cabecera IA" class="w-full h-64 object-cover brightness-75">
+    <div class="absolute inset-0 flex items-center justify-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-white text-center">Mi experiencia con la Inteligencia Artificial</h1>
     </div>
-    <div class="relative px-4">
-      <button id="btnToggle" class="w-full text-left px-4 py-2 bg-secondary rounded text-neutral font-semibold" x-on:click="dropdownOpen = !dropdownOpen">☰ Navegación</button>
-      <div id="dropdownMenu" class="absolute left-0 right-0 mt-2 bg-neutral text-darkbg rounded shadow-lg overflow-hidden" x-show="dropdownOpen" x-transition x-on:click.away="dropdownOpen = false">
-        <a href="#bienvenida" class="block px-4 py-2 hover:bg-secondary hover:text-neutral">Bienvenida</a>
-        <a href="#introduccion" class="block px-4 py-2 hover:bg-secondary hover:text-neutral">Objetivos</a>
-        <a href="#modulos" class="block px-4 py-2 hover:bg-secondary hover:text-neutral">Contenidos</a>
-        <a href="#metodologia" class="block px-4 py-2 hover:bg-secondary hover:text-neutral">Metodología</a>
-        <a href="#contacto" class="block px-4 py-2 hover:bg-secondary hover:text-neutral">Contacto</a>
-      </div>
-    </div>
-    <div class="absolute bottom-6 w-full text-center">
-      <button id="theme-toggle" class="px-4 py-2 bg-secondary rounded text-neutral" x-on:click="dark = !dark; localStorage.setItem('theme', dark ? 'dark':'light'); document.documentElement.classList.toggle('dark', dark);">🌗 Modo</button>
-    </div>
-  </aside>
+  </header>
 
-  <!-- Collapse Sidebar Button -->
-  <button class="fixed top-4 left-4 z-50 p-2 bg-secondary text-neutral rounded" x-on:click="sidebarCollapsed = !sidebarCollapsed">☰</button>
-
-  <!-- Main Content -->
-  <main class="ml-64 flex-1 p-8 space-y-16" x-init="AOS.init({ once: true })">
-
-    <!-- Bienvenida -->
-    <section id="bienvenida" data-aos="fade-up">
-      <h2 class="text-3xl font-bold text-primary mb-4">Bienvenida al Curso</h2>
-      <p class="mb-4">Bienvenido al curso de <strong>Biología Celular</strong>, diseñado especialmente para estudiantes de primer semestre de Odontología. Este curso teórico-práctico te proporcionará una comprensión sólida de los fundamentos celulares, esenciales para el entendimiento de los procesos biológicos que influyen en la salud oral y sistémica.</p>
-      <p>A lo largo del semestre, explorarás la estructura y función de las células, así como los mecanismos que rigen su actividad. Interactuarás con contenidos multimedia, laboratorios virtuales y actividades interactivas que facilitarán tu aprendizaje y aplicación del conocimiento en contextos clínicos reales.</p>
-      <figure class="mt-6 text-center">
-        <img src="images/celula-interactuando.png" alt="Interacción célula eucariota y procariota" class="zoom-img">
-        <figcaption class="mt-2 text-sm italic text-gray-600">Representación de la interacción entre una célula eucariota y una célula procariota.</figcaption>
-      </figure>
-    </section>
-
-    <!-- Objetivos -->
-    <section id="introduccion" data-aos="fade-right">
-      <h2 class="text-3xl font-bold text-primary mb-4">Objetivos del Curso</h2>
-      <ul class="list-disc pl-6 space-y-2">
-        <li>Comprender los principios fundamentales de la biología celular y su aplicación en el campo odontológico.</li>
-        <li>Identificar y describir las estructuras y funciones celulares, así como los procesos metabólicos esenciales.</li>
-        <li>Analizar y explicar el ciclo celular y los mecanismos de regulación que previenen disfunciones y enfermedades.</li>
-        <li>Aplicar conceptos teóricos a través de actividades prácticas y simulaciones interactivas.</li>
-        <li>Relacionar la biología celular con aplicaciones clínicas en la práctica odontológica.</li>
+  <!-- Navbar -->
+  <nav class="bg-white shadow sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+      <h2 class="text-xl font-semibold text-primary">Curso IAG</h2>
+      <ul class="hidden md:flex space-x-6 font-medium text-sm">
+        <li><a href="#experiencia" class="hover:text-accent">Experiencia</a></li>
+        <li><a href="#sorprendente" class="hover:text-accent">Sorprendente</a></li>
+        <li><a href="#preocupaciones" class="hover:text-accent">Preocupaciones</a></li>
+        <li><a href="#retos" class="hover:text-accent">Retos</a></li>
       </ul>
-    </section>
+    </div>
+  </nav>
 
-    <!-- Contenidos -->
-    <section id="modulos" data-aos="fade-left">
-      <h2 class="text-3xl font-bold text-primary mb-6">Contenidos del Curso</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="p-6 bg-neutral rounded-lg shadow">
-          <h3 class="text-xl font-semibold text-secondary mb-2">Introducción a la Biología Celular</h3>
-          <p>Historia y relevancia de la biología celular. Células procariotas y eucariotas.</p>
-        </div>
-        <div class="p-6 bg-neutral rounded-lg shadow">
-          <h3 class="text-xl font-semibold text-secondary mb-2">Estructura y Función Celular</h3>
-          <p>Componentes celulares: membrana, citoplasma, núcleo y orgánulos.</p>
-        </div>
-        <div class="p-6 bg-neutral rounded-lg shadow">
-          <h3 class="text-xl font-semibold text-secondary mb-2">Ciclo Celular y Regulación</h3>
-          <p>Fases del ciclo celular y mecanismos de control.</p>
-        </div>
-        <div class="p-6 bg-neutral rounded-lg shadow">
-          <h3 class="text-xl font-semibold text-secondary mb-2">Metabolismo Celular</h3>
-          <p>Procesos energéticos como respiración y fermentación.</p>
-        </div>
-        <div class="p-6 bg-neutral rounded-lg shadow">
-          <h3 class="text-xl font-semibold text-secondary mb-2">Comunicación Celular</h3>
-          <p>Señalización celular y su impacto en inflamación e inmunidad.</p>
-        </div>
-        <div class="p-6 bg-neutral rounded-lg shadow">
-          <h3 class="text-xl font-semibold text-secondary mb-2">Aplicaciones Clínicas</h3>
-          <p>Relación con la patología oral y tecnologías basadas en biología celular.</p>
-        </div>
-      </div>
-    </section>
+  <!-- Contenido principal -->
+  <main class="max-w-5xl mx-auto p-6 space-y-12">
 
-    <!-- Metodología -->
-    <section id="metodologia" data-aos="fade-up">
-      <h2 class="text-3xl font-bold text-primary mb-6">Metodología del Curso</h2>
-      <ul class="list-disc pl-6 space-y-2">
-        <li>Clases virtuales en vivo para exponer conceptos y resolver dudas.</li>
-        <li>Laboratorios virtuales con experimentos simulados.</li>
-        <li>Foros de discusión y grupos de trabajo colaborativo.</li>
-        <li>Recursos multimedia como videos, infografías y animaciones.</li>
-        <li>Evaluaciones prácticas y teóricas para medir tu progreso.</li>
-      </ul>
-    </section>
-
-    <!-- Contacto -->
-    <section id="contacto" data-aos="fade-up">
-      <h2 class="text-3xl font-bold text-primary mb-6">Contacto</h2>
-      <form class="space-y-4 max-w-md">
-        <input type="text" placeholder="Nombre" class="w-full p-3 border border-gray-300 rounded" required>
-        <input type="email" placeholder="Correo electrónico" class="w-full p-3 border border-gray-300 rounded" required>
-        <textarea rows="4" placeholder="Mensaje" class="w-full p-3 border border-gray-300 rounded"></textarea>
-        <button type="submit" class="px-6 py-3 bg-secondary text-neutral rounded hover:bg-primary transition">Enviar</button>
-      </form>
-      <p class="mt-6 text-sm text-gray-600">
-        <strong>Duración:</strong> 16 semanas (un semestre académico)<br>
-        <strong>Modalidad:</strong> Teórico-práctico, con sesiones virtuales y actividades interactivas.<br>
-        <strong>Requisitos:</strong> Acceso a plataforma virtual, computadora y conexión a Internet.<br>
-        <strong>Inicio:</strong> Fecha definida según calendario académico.<br>
-        <strong>Correo:</strong> <a href="mailto:correo@ejemplo.edu" class="text-secondary underline">correo@ejemplo.edu</a>
+    <section id="experiencia" class="bg-white rounded-xl shadow-lg p-6">
+      <h2 class="text-2xl font-bold text-primary mb-3">Mi experiencia en el curso</h2>
+      <p>
+        A lo largo del curso de Inteligencia Artificial Generativa he podido explorar herramientas como ChatGPT, DALL·E y generadores de código.
+        Me sentí motivado al ver cómo estas herramientas pueden usarse para crear contenido, resolver dudas y facilitar la programación web.
       </p>
-    </section><section id="quizzes" class="space-y-8" data-aos="fade-up">
-  <h2 class="text-3xl font-bold">Quizzes Interactivos</h2>
-  <p class="text-lg">Pon a prueba tus conocimientos con estos quizzes interactivos.</p>
-  
-  <!-- Primer quiz -->
-  <div class="bg-neutral p-6 rounded shadow-md space-y-4">
-    <h3 class="text-2xl font-semibold">Quiz 1: Estructura Celular</h3>
-    <form id="quizForm1">
-      <div class="space-y-2">
-        <label class="block text-lg">
-          ¿Cuál es la principal función de la membrana plasmática?
-        </label>
-        <div class="space-y-1">
-          <input type="radio" name="question1" value="A" id="q1A">
-          <label for="q1A">A) Regular el transporte de sustancias</label>
-          <input type="radio" name="question1" value="B" id="q1B">
-          <label for="q1B">B) Realizar la síntesis de proteínas</label>
-          <input type="radio" name="question1" value="C" id="q1C">
-          <label for="q1C">C) Almacenar energía</label>
+    </section>
+
+    <section id="sorprendente" class="bg-white rounded-xl shadow-lg p-6">
+      <h2 class="text-2xl font-bold text-primary mb-3">¿Qué me ha sorprendido?</h2>
+      <p>
+        Me ha sorprendido la capacidad de la IA para comprender y generar lenguaje natural, crear imágenes desde texto e incluso escribir código funcional.
+        Es increíble ver cómo puede ser una herramienta creativa y de apoyo educativo.
+      </p>
+    </section>
+
+    <section id="preocupaciones" class="bg-white rounded-xl shadow-lg p-6">
+      <h2 class="text-2xl font-bold text-primary mb-3">Preocupaciones y sugerencias</h2>
+      <p>
+        Me preocupa la falta de límites éticos en el uso de la IA. Sugiero una regulación clara, educación digital desde edades tempranas y transparencia en los desarrollos.
+      </p>
+    </section>
+
+    <section id="retos" class="bg-white rounded-xl shadow-lg p-6">
+      <h2 class="text-2xl font-bold text-primary mb-3">Mis retos personales</h2>
+      <p>
+        Uno de mis principales retos es adaptarme a los cambios tecnológicos rápidos y aprender a usar las herramientas con confianza. Agradezco espacios guiados, explicaciones claras y ejemplos prácticos que me permitan seguir aprendiendo.
+      </p>
+    </section>
+
+    <!-- Enlaces y Recursos Creativos -->
+    <section id="enlaces" class="bg-gray-100 py-12 px-4 rounded-xl shadow-inner">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-semibold mb-6 text-indigo-700">Enlaces y Recursos Creativos</h2>
+
+        <div class="mb-6">
+          <h3 class="text-xl font-semibold text-gray-800">Mi Página Personal</h3>
+          <p class="text-lg mt-2">
+            Esta es mi página personal, la cual realicé con IA.
+            <a href="https://aldair2503.github.io/biologiacelular/" target="_blank" class="text-indigo-600 hover:text-indigo-800">Clic aquí</a>
+          </p>
         </div>
-      </div>
 
-      <button type="submit" class="mt-4 px-4 py-2 bg-secondary text-neutral rounded">Enviar Respuesta</button>
-    </form>
-    <p id="quiz1Result" class="mt-4"></p>
-  </div>
-</section><section id="laboratorio-virtual" class="space-y-8" data-aos="fade-up">
-  <h2 class="text-3xl font-bold">Laboratorio Virtual</h2>
-  <p class="text-lg">Accede a nuestros laboratorios virtuales para realizar prácticas interactivas y explorar conceptos clave de biología celular.</p>
+        <div class="mb-6">
+          <h3 class="text-xl font-semibold text-gray-800">La página de referencia creada por nuestro profe</h3>
+          <p class="text-lg mt-2">
+            Aquí puedes explorar más sobre IA y encuentras un tutorial.
+            <a href="https://emersonuan.github.io/firstwebpage/" target="_blank" class="text-indigo-600 hover:text-indigo-800">Visítala aquí</a>
+          </p>
+        </div>
 
-  <!-- Enlace o simulador de laboratorio -->
-  <div class="bg-neutral p-6 rounded shadow-md space-y-4">
-    <h3 class="text-2xl font-semibold">Simulador: Estudio de la célula</h3>
-    <p>Haz clic en el siguiente enlace para acceder al simulador de la expresión génica en la célula y realizar diversas actividades:</p>
-    <a href="https://phet.colorado.edu/es/simulations/gene-expression-essentials" target="_blank" class="text-primary hover:underline">
-      Ir al simulador
-    </a>
+        <div class="mb-6">
+          <h3 class="text-xl font-semibold text-gray-800">Otras herramientas de IA para educación</h3>
+          <ul class="list-disc pl-6 space-y-2 text-lg">
+            <li>
+              <strong>Comenio:</strong> Planea clases, crea materiales y evalúa con IA.
+              <a href="https://www.comenio.ai/" target="_blank" class="text-indigo-600 hover:text-indigo-800">Visítala aquí</a>
+            </li>
+            <li>
+              <strong>Teachy:</strong> Prepara clases y corrige más rápido.
+              <a href="https://www.teachy.app/es" target="_blank" class="text-indigo-600 hover:text-indigo-800">Visítala aquí</a>
+            </li>
+            <li>
+              <strong>Megaprofe:</strong> Usa IA para crear actividades, recursos y gestionar el aula.
+              <a href="https://megaprofe.es/" target="_blank" class="text-indigo-600 hover:text-indigo-800">Visítala aquí</a>
+            </li>
+            <li>
+              <strong>Gamma IA:</strong> Crea presentaciones y sitios web fácilmente.
+              <a href="https://gamma.app/" target="_blank" class="text-indigo-600 hover:text-indigo-800">Visítala aquí</a>
+            </li>
+          </ul>
+        </div>
+    </section>
+
+    </div>
+    <section id="galeria" class="py-12 bg-gray-100">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl font-bold text-center mb-6">Galería de Imágenes Generadas con IA</h2>
+    <div class="overflow-x-auto whitespace-nowrap space-x-4 flex pb-4">
+      <img src="images/galeria1.jpg" alt="Imagen generada con IA 1" class="inline-block w-64 h-64 object-cover rounded-xl shadow-md hover:scale-105 transition-transform duration-300">
+      <img src="images/galeria2.jpg" alt="Imagen generada con IA 2" class="inline-block w-64 h-64 object-cover rounded-xl shadow-md hover:scale-105 transition-transform duration-300">
+      <img src="images/galeria3.jpg" alt="Imagen generada con IA 3" class="inline-block w-64 h-64 object-cover rounded-xl shadow-md hover:scale-105 transition-transform duration-300">
+      <img src="images/galeria4.jpg" alt="Imagen generada con IA 4" class="inline-block w-64 h-64 object-cover rounded-xl shadow-md hover:scale-105 transition-transform duration-300">
+    </div>
   </div>
 </section>
 
+<section id="test" class="bg-white rounded-xl shadow-lg p-6 mt-12">
+  <h2 class="text-2xl font-bold text-primary mb-3">Test interactivo sobre IA</h2>
+  <p>¡Pon a prueba tus conocimientos sobre Inteligencia Artificial!</p>
+      <form id="quizForm" class="space-y-6">
+        <div>
+          <p class="font-bold">1. ¿Qué es la Inteligencia Artificial?</p>
+          <div class="space-y-2">
+            <label class="block opcion"><input type="radio" name="q1" value="A"> A) Un programa que imita el comportamiento humano</label>
+            <label class="block opcion"><input type="radio" name="q1" value="B"> B) Un robot que hace todo por ti</label>
+            <label class="block opcion"><input type="radio" name="q1" value="C"> C) Un sistema que realiza tareas sin necesidad de datos</label>
+          </div>
+        </div>
+        <div>
+          <p class="font-bold">2. ¿Cuál de estas herramientas se usa para crear imágenes generadas por IA?</p>
+          <div class="space-y-2">
+            <label class="block opcion"><input type="radio" name="q2" value="A"> A) ChatGPT</label>
+            <label class="block opcion"><input type="radio" name="q2" value="B"> B) DALL·E</label>
+            <label class="block opcion"><input type="radio" name="q2" value="C"> C) Google Translate</label>
+          </div>
+        </div>
+        <div>
+          <p class="font-bold">3. ¿Qué puede hacer la IA en la educación?</p>
+          <div class="space-y-2">
+            <label class="block opcion"><input type="radio" name="q3" value="A"> A) Mejorar la eficiencia en la enseñanza</label>
+            <label class="block opcion"><input type="radio" name="q3" value="B"> B) Hacer las clases más aburridas</label>
+            <label class="block opcion"><input type="radio" name="q3" value="C"> C) Sustituir a los maestros por completo</label>
+          </div>
+        </div>
+        <button type="submit" class="bg-blue-900 text-white px-4 py-2 rounded">Enviar respuestas</button>
+      </form>
+      <p id="resultado" class="mt-4 font-bold"></p>
+      <button id="reiniciar" class="hidden mt-4 bg-blue-900 text-white px-4 py-2 rounded">Volver a intentarlo</button>
+    </section>
+  </main>
 
-<script>
-  // Lógica para manejar el quiz
-  document.getElementById('quizForm1').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const selectedAnswer = document.querySelector('input[name="question1"]:checked');
-    
-    if (!selectedAnswer) {
-      alert('Por favor, selecciona una respuesta');
-      return;
-    }
 
-    const resultText = selectedAnswer.value === 'A' ? '¡Correcto!' : 'Incorrecto, la respuesta correcta es A)';
-    document.getElementById('quiz1Result').innerText = resultText;
-  });
-</script>
-
-
-    <footer class="pt-8 border-t border-gray-300 text-center text-sm text-gray-600" data-aos="fade-up">
-      <p>&copy; 2025 Universidad XYZ. Todos los derechos reservados.</p>
-    </footer>
-  </main> 
-
-  
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js');
+    const respuestasCorrectas = {
+      q1: "A",
+      q2: "B",
+      q3: "A"
+    };
+
+    document.getElementById("quizForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      let correctas = 0;
+      let total = Object.keys(respuestasCorrectas).length;
+      const resultado = document.getElementById("resultado");
+
+      Object.keys(respuestasCorrectas).forEach(pregunta => {
+        const seleccion = document.querySelector(`input[name="${pregunta}"]:checked`);
+        const opciones = document.querySelectorAll(`input[name="${pregunta}"]`);
+        opciones.forEach(op => {
+          const label = op.parentElement;
+          label.classList.remove("correcta", "incorrecta");
+          if (op.value === respuestasCorrectas[pregunta]) {
+            label.classList.add("correcta");
+          } else if (op.checked) {
+            label.classList.add("incorrecta");
+          }
+        });
+        if (seleccion && seleccion.value === respuestasCorrectas[pregunta]) correctas++;
+      });
+
+      if (correctas === total) {
+        resultado.textContent = "¡Correcto! Todas tus respuestas son correctas.";
+        resultado.classList.remove("text-red-500");
+        resultado.classList.add("text-green-600");
+      } else {
+        resultado.textContent = `¡Incorrecto! Respondiste correctamente ${correctas} de ${total} preguntas.`;
+        resultado.classList.remove("text-green-600");
+        resultado.classList.add("text-red-500");
+      }
+
+      document.getElementById("reiniciar").classList.remove("hidden");
+    });
+
+    document.getElementById("reiniciar").addEventListener("click", () => {
+      document.getElementById("quizForm").reset();
+      document.querySelectorAll(".opcion").forEach(l => l.classList.remove("correcta", "incorrecta"));
+      document.getElementById("resultado").textContent = "";
+      document.getElementById("reiniciar").classList.add("hidden");
+    });
+
+    window.addEventListener("scroll", function () {
+      document.getElementById("").style.display = window.scrollY > 300 ? "block" : "none";
+    });
+
+    function moverCarrusel(index) {
+      const carrusel = document.getElementById("carousel");
+      const width = carrusel.offsetWidth / 4;
+      carrusel.style.transform = `translateX(-${index * width}px)`;
     }
-    AOS.init({ once: true });
   </script>
-  
+   <section id="galeria" class="py-12 bg-gray-100">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl font-bold text-center mb-6">Video generado por IA</h2>
+      <p>Observa este video generado con herramientas de inteligencia artificial | creado con Synthesia.</p>
+  <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+    <iframe src="https://share.synthesia.io/4a34d0ca-a29c-4077-8cee-7cc15c12ee2a"
+            style="position:absolute;top:0;left:0;width:100%;height:100%;"
+            frameborder="0" allowfullscreen>
+    </iframe>
+  </div>
+</section>
+
+</body>
+ <!-- Botón Volver Arriba -->
+    <div class="text-center mt-12">
+      <a href="#top" class="inline-block bg-primary text-white font-medium px-6 py-3 rounded-full hover:bg-accent transition-all">
+        Volver arriba
+      </a>
+
+  </main>
+
+  <footer class="bg-white text-center text-sm py-6 text-gray-500 mt-8">
+    &copy; 2025 | Creado por Aldair Rosero - Curso de Inteligencia Artificial Generativa - UAN
+  </footer>
+
 </body>
 </html>
+
+
