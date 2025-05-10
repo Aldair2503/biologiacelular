@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Curso de Biología Celular</title>
+
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="Curso de Biología Celular: estructura, función y dinámica celular. Recursos, simuladores, quizzes y más.">
+  <meta property="og:title" content="Curso de Biología Celular">
+  <meta property="og:description" content="Explora recursos y actividades del curso de Biología Celular.">
+  <meta property="og:image" content="logo_universidad.png">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon & PWA manifest -->
+  <link rel="icon" href="favicon-32.png" sizes="32x32">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class'],
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2E7D32',
+            secondary: '#1565C0',
+            neutral: '#ECEFF1',
+            darkbg: '#102027',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- AOS Animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+  <style>
+    body { font-family: 'Open Sans', sans-serif; }
+    [data-theme="dark"] { background-color: #121212; color: #ECEFF1; }
+    .zoom-img { transition: transform 0.4s ease, box-shadow 0.4s ease; border-radius: 16px; max-width: 100%; cursor: zoom-in; }
+    .zoom-img:hover { transform: scale(1.05); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); }
+  </style>
+</head>
+<body class="flex" x-data="{ dark: false }" x-init="dark = localStorage.getItem('theme')==='dark'; document.documentElement.classList.toggle('dark', dark); document.documentElement.setAttribute('data-theme', dark?'dark':'light');">
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed h-full w-64 bg-primary text-neutral shadow-lg transition-transform transform" x-data="{ sidebarCollapsed: false, dropdownOpen: false }" :class="{ '-translate-x-full': sidebarCollapsed }">
+    <div class="p-6 text-center">
+      <img src="logo_universidad.png" alt="Logo Universidad" class="mx-auto w-32">
+    </div>
+    <div class="relative px-4">
+      <button id="btnToggle" class="w-full text-left px-4 py-2 bg-secondary rounded text-neutral font-semibold" x-on:click="dropdownOpen = !dropdownOpen">☰ Navegación</button>
+      <div id="dropdownMenu" class="absolute left-0 right-0 mt-2 bg-neutral text-darkbg rounded shadow-lg overflow-hidden" x-show="dropdownOpen" x-transition x-on:click.away="dropdownOpen = false">
+        <a href="#bienvenida" class="block px-4 py-2 hover:bg-secondary hover:text-neutral">Bienvenida</a>
+        <a href="#introduccion" class="block px-4 py-2 hover:bg-secondary hover:text-neutral">Objetivos</a>
+        <a href="#modulos" class="block px-4 py-2 hover:bg-secondary hover:text-neutral">Contenidos</a>
+        <a href="#metodologia" class="block px-4 py-2 hover:bg-secondary hover:text-neutral">Metodología</a>
+        <a href="#contacto" class="block px-4 py-2 hover:bg-secondary hover:text-neutral">Contacto</a>
+      </div>
+    </div>
+    <div class="absolute bottom-6 w-full text-center">
+      <button id="theme-toggle" class="px-4 py-2 bg-secondary rounded text-neutral" x-on:click="dark = !dark; localStorage.setItem('theme', dark ? 'dark':'light'); document.documentElement.classList.toggle('dark', dark);">🌗 Modo</button>
+    </div>
+  </aside>
+
+  <!-- Collapse Sidebar Button -->
+  <button class="fixed top-4 left-4 z-50 p-2 bg-secondary text-neutral rounded" x-on:click="sidebarCollapsed = !sidebarCollapsed">☰</button>
+
+  <!-- Main Content -->
+  <main class="ml-64 flex-1 p-8 space-y-16" x-init="AOS.init({ once: true })">
+
+    <!-- Bienvenida -->
+    <section id="bienvenida" data-aos="fade-up">
+      <h2 class="text-3xl font-bold text-primary mb-4">Bienvenida al Curso</h2>
+      <p class="mb-4">Bienvenido al curso de <strong>Biología Celular</strong>, diseñado especialmente para estudiantes de primer semestre de Odontología. Este curso teórico-práctico te proporcionará una comprensión sólida de los fundamentos celulares, esenciales para el entendimiento de los procesos biológicos que influyen en la salud oral y sistémica.</p>
+      <p>A lo largo del semestre, explorarás la estructura y función de las células, así como los mecanismos que rigen su actividad. Interactuarás con contenidos multimedia, laboratorios virtuales y actividades interactivas que facilitarán tu aprendizaje y aplicación del conocimiento en contextos clínicos reales.</p>
+      <figure class="mt-6 text-center">
+        <img src="images/celula-interactuando.png" alt="Interacción célula eucariota y procariota" class="zoom-img">
+        <figcaption class="mt-2 text-sm italic text-gray-600">Representación de la interacción entre una célula eucariota y una célula procariota.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Objetivos -->
+    <section id="introduccion" data-aos="fade-right">
+      <h2 class="text-3xl font-bold text-primary mb-4">Objetivos del Curso</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Comprender los principios fundamentales de la biología celular y su aplicación en el campo odontológico.</li>
+        <li>Identificar y describir las estructuras y funciones celulares, así como los procesos metabólicos esenciales.</li>
+        <li>Analizar y explicar el ciclo celular y los mecanismos de regulación que previenen disfunciones y enfermedades.</li>
+        <li>Aplicar conceptos teóricos a través de actividades prácticas y simulaciones interactivas.</li>
+        <li>Relacionar la biología celular con aplicaciones clínicas en la práctica odontológica.</li>
+      </ul>
+    </section>
+
+    <!-- Contenidos -->
+    <section id="modulos" data-aos="fade-left">
+      <h2 class="text-3xl font-bold text-primary mb-6">Contenidos del Curso</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="p-6 bg-neutral rounded-lg shadow">
+          <h3 class="text-xl font-semibold text-secondary mb-2">Introducción a la Biología Celular</h3>
+          <p>Historia y relevancia de la biología celular. Células procariotas y eucariotas.</p>
+        </div>
+        <div class="p-6 bg-neutral rounded-lg shadow">
+          <h3 class="text-xl font-semibold text-secondary mb-2">Estructura y Función Celular</h3>
+          <p>Componentes celulares: membrana, citoplasma, núcleo y orgánulos.</p>
+        </div>
+        <div class="p-6 bg-neutral rounded-lg shadow">
+          <h3 class="text-xl font-semibold text-secondary mb-2">Ciclo Celular y Regulación</h3>
+          <p>Fases del ciclo celular y mecanismos de control.</p>
+        </div>
+        <div class="p-6 bg-neutral rounded-lg shadow">
+          <h3 class="text-xl font-semibold text-secondary mb-2">Metabolismo Celular</h3>
+          <p>Procesos energéticos como respiración y fermentación.</p>
+        </div>
+        <div class="p-6 bg-neutral rounded-lg shadow">
+          <h3 class="text-xl font-semibold text-secondary mb-2">Comunicación Celular</h3>
+          <p>Señalización celular y su impacto en inflamación e inmunidad.</p>
+        </div>
+        <div class="p-6 bg-neutral rounded-lg shadow">
+          <h3 class="text-xl font-semibold text-secondary mb-2">Aplicaciones Clínicas</h3>
+          <p>Relación con la patología oral y tecnologías basadas en biología celular.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Metodología -->
+    <section id="metodologia" data-aos="fade-up">
+      <h2 class="text-3xl font-bold text-primary mb-6">Metodología del Curso</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Clases virtuales en vivo para exponer conceptos y resolver dudas.</li>
+        <li>Laboratorios virtuales con experimentos simulados.</li>
+        <li>Foros de discusión y grupos de trabajo colaborativo.</li>
+        <li>Recursos multimedia como videos, infografías y animaciones.</li>
+        <li>Evaluaciones prácticas y teóricas para medir tu progreso.</li>
+      </ul>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" data-aos="fade-up">
+      <h2 class="text-3xl font-bold text-primary mb-6">Contacto</h2>
+      <form class="space-y-4 max-w-md">
+        <input type="text" placeholder="Nombre" class="w-full p-3 border border-gray-300 rounded" required>
+        <input type="email" placeholder="Correo electrónico" class="w-full p-3 border border-gray-300 rounded" required>
+        <textarea rows="4" placeholder="Mensaje" class="w-full p-3 border border-gray-300 rounded"></textarea>
+        <button type="submit" class="px-6 py-3 bg-secondary text-neutral rounded hover:bg-primary transition">Enviar</button>
+      </form>
+      <p class="mt-6 text-sm text-gray-600">
+        <strong>Duración:</strong> 16 semanas (un semestre académico)<br>
+        <strong>Modalidad:</strong> Teórico-práctico, con sesiones virtuales y actividades interactivas.<br>
+        <strong>Requisitos:</strong> Acceso a plataforma virtual, computadora y conexión a Internet.<br>
+        <strong>Inicio:</strong> Fecha definida según calendario académico.<br>
+        <strong>Correo:</strong> <a href="mailto:correo@ejemplo.edu" class="text-secondary underline">correo@ejemplo.edu</a>
+      </p>
+    </section><section id="quizzes" class="space-y-8" data-aos="fade-up">
+  <h2 class="text-3xl font-bold">Quizzes Interactivos</h2>
+  <p class="text-lg">Pon a prueba tus conocimientos con estos quizzes interactivos.</p>
+  
+  <!-- Primer quiz -->
+  <div class="bg-neutral p-6 rounded shadow-md space-y-4">
+    <h3 class="text-2xl font-semibold">Quiz 1: Estructura Celular</h3>
+    <form id="quizForm1">
+      <div class="space-y-2">
+        <label class="block text-lg">
+          ¿Cuál es la principal función de la membrana plasmática?
+        </label>
+        <div class="space-y-1">
+          <input type="radio" name="question1" value="A" id="q1A">
+          <label for="q1A">A) Regular el transporte de sustancias</label>
+          <input type="radio" name="question1" value="B" id="q1B">
+          <label for="q1B">B) Realizar la síntesis de proteínas</label>
+          <input type="radio" name="question1" value="C" id="q1C">
+          <label for="q1C">C) Almacenar energía</label>
+        </div>
+      </div>
+
+      <button type="submit" class="mt-4 px-4 py-2 bg-secondary text-neutral rounded">Enviar Respuesta</button>
+    </form>
+    <p id="quiz1Result" class="mt-4"></p>
+  </div>
+</section><section id="laboratorio-virtual" class="space-y-8" data-aos="fade-up">
+  <h2 class="text-3xl font-bold">Laboratorio Virtual</h2>
+  <p class="text-lg">Accede a nuestros laboratorios virtuales para realizar prácticas interactivas y explorar conceptos clave de biología celular.</p>
+
+  <!-- Enlace o simulador de laboratorio -->
+  <div class="bg-neutral p-6 rounded shadow-md space-y-4">
+    <h3 class="text-2xl font-semibold">Simulador: Estudio de la célula</h3>
+    <p>Haz clic en el siguiente enlace para acceder al simulador de la expresión génica en la célula y realizar diversas actividades:</p>
+    <a href="https://phet.colorado.edu/es/simulations/gene-expression-essentials" target="_blank" class="text-primary hover:underline">
+      Ir al simulador
+    </a>
+  </div>
+</section>
+
+
+<script>
+  // Lógica para manejar el quiz
+  document.getElementById('quizForm1').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const selectedAnswer = document.querySelector('input[name="question1"]:checked');
+    
+    if (!selectedAnswer) {
+      alert('Por favor, selecciona una respuesta');
+      return;
+    }
+
+    const resultText = selectedAnswer.value === 'A' ? '¡Correcto!' : 'Incorrecto, la respuesta correcta es A)';
+    document.getElementById('quiz1Result').innerText = resultText;
+  });
+</script>
+
+
+    <footer class="pt-8 border-t border-gray-300 text-center text-sm text-gray-600" data-aos="fade-up">
+      <p>&copy; 2025 Universidad XYZ. Todos los derechos reservados.</p>
+    </footer>
+  </main> 
+
+  
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+    AOS.init({ once: true });
+  </script>
+  
+</body>
+</html>
